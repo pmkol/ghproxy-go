@@ -15,9 +15,9 @@ import (
 )
 
 const (
-	sizeLimit = 1024 * 1024 * 1024 * 1
+	sizeLimit = 256 * 1024 * 1024 * 1
 	host      = "127.0.0.1"
-	port      = 8080
+	port      = 1024
 )
 
 var (
@@ -41,11 +41,17 @@ var (
 )
 
 func main() {
-	loadBlacklist("blacklist.txt")
+	blacklistFile := flag.String("b", "blacklist.txt", "Path to the blacklist file")
+	flag.Parse()
+	if *blacklistFile == "blacklist.txt" {
+		fmt.Println("Usage: ghproxy-go -b <blacklist_file>")
+		return
+	}
+	loadBlacklist(*blacklistFile)
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Work has started!!! Source code is available at: https://github.com/0-RTT/ghproxy-go")
+		c.String(http.StatusOK, "Work has started!!! Source code is available at: https://github.com/pmkol")
 	})
 	router.NoRoute(handler)
 	err := router.Run(fmt.Sprintf("%s:%d", host, port))
