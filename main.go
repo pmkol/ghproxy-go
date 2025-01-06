@@ -52,7 +52,7 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/", func(c *gin.Context) {
-		c.String(http.StatusOK, "Work has started!!! Source code is available at: https://github.com/pmkol")
+		c.Redirect(http.StatusMovedPermanently, "https://github.com/pmkol")
 	})
 	router.NoRoute(handler)
 	err := router.Run(fmt.Sprintf("%s:%d", host, port))
