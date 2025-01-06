@@ -14,7 +14,7 @@ jobs:
       - name: 设置 Go 环境
         uses: actions/setup-go@v3
         with:
-          go-version: '1.23.3'
+          go-version: '1.23.x'
 
       - name: 运行测试
         run: go test ./...
