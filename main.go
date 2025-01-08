@@ -124,6 +124,7 @@ func proxy(c *gin.Context, u string) {
 	req.Header.Del("Host")
 	resp, err := httpClient.Do(req)
 	if err != nil {
+		log.Println("server error:", err)
 		http.Error(c.Writer, fmt.Sprintf("server error %v", err), http.StatusInternalServerError)
 		return
 	}
